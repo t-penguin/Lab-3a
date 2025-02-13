@@ -4,7 +4,7 @@
     // where 1 <= period <= 8 and 0 <= minute <= 59
     // False represents minutes that are free
     // True represents minutes that are reserved
-    private bool[,] minutes = new bool[8, 60];
+    private bool[,] schedule = new bool[8, 60];
 
 
     // Returns true if a specific minute in a given period is available for
