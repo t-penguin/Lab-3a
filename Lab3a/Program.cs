@@ -12,7 +12,7 @@
     // PRE-CONDITIONS: 1 <= period <= 8, 0 <= minute <= 59
     private bool isMinuteFree(int period, int minute)
     {
-
+        return !schedule[period -1, minute];
     }
 
     // Marks a consecutive block of duration minutes starting from startMinute
@@ -20,7 +20,10 @@
     // PRE-CONDITIONS: 1 <= period <= 8, 0 <= startMinute <= 59, 1 <= duration <= 60
     private void reserveBlock(int period, int startMinute, int duration)
     {
-
+        for (int i = startMinute; i < startMinute + duration; i++)
+        {
+            schedule[period - 1, i] = true;
+        }
     }
 
     // Searches for the earliest available block of duration minutes in the
