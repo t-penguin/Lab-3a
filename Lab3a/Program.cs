@@ -33,7 +33,7 @@
     {
         int startMinute = 0;
         bool found = false;
-        while (startMinute < 60 - duration)
+        while (!found && startMinute < 60 - duration)
         {
             // Skip iterations where the current starting minute is not free
             if (!isMinuteFree(period, startMinute))
