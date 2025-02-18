@@ -31,7 +31,39 @@
     // no such block exists, return -1. Use isMinuteFree to check minute availability
     public int findFreeBlock(int period, int duration)
     {
+        int startMinute = 0;
+        bool found = false;
+        while (!found && startMinute < 60 - duration)
+        {
+            // Skip iterations where the current starting minute is not free
+            if (!isMinuteFree(period, startMinute))
+            {
+                startMinute++;
+                continue;
+            }
 
+            // Check for continuous block of available minutes
+            int lastMinuteChecked = startMinute;
+            for (int currentMinute = startMinute; currentMinute < startMinute + duration; currentMinute++)
+            {
+                // End check if a not free minute is found
+                // Move start minute to the next minute after the not free minute
+                if (!isMinuteFree(period, currentMinute))
+                {
+                    startMinute = currentMinute + 1;
+                    break;
+                }
+
+                // All minutes in the range are free
+                if (currentMinute == startMinute + duration - 1)
+                    found = true;
+            }
+        }
+
+        if (found)
+            return startMinute;
+
+        return -1;
     }
 
     // Searches for the earliest available block of duration minutes within the
