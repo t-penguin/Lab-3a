@@ -108,6 +108,15 @@
     // If no block is found, return false
     public bool makeAppointment(int startPeriod, int endPeriod, int duration)
     {
-        
+        for (int period = startPeriod; period <= endPeriod; period++)
+        {
+            int startMinute = findFreeBlock(period, duration);
+            if (startMinute != -1)
+            {
+                reserveBlock(period, startMinute, duration);
+                return true;
+            }
+        }
+        return false;
     }
 }
