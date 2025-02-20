@@ -6,6 +6,40 @@
     // True represents minutes that are reserved
     private bool[,] schedule = new bool[8, 60];
 
+    // Constructor for intializing the schedule to be completely free
+    public Appointment()
+    {
+        Random rand = new Random();
+
+        for (int period = 0; period < 8; period++) // Goes through all 8 periods
+      {
+        int minute = 0;
+        
+        while (minute < 60) // Loops until 60 mins is reached
+        {
+            // This decides the length of the block randomly (1-21 in this case.)
+            int blockLength = rand.Next(1,21);
+
+               // Prevents from going over 60 mins
+               if (minute + blockLength > 60 ) 
+               {
+                  blockLength = 60 - minute;
+               }
+             
+               // Determines wether the block is true or false
+               bool isReserved = rand.Next(2) == 1; // 50% 
+
+               // Applies the next block
+               for (int i = 0; i < blockLength; i++)
+               {
+                   schedule [period, minute + i] = isReserved;
+               }
+              
+               // Moves the next block
+               minute += blockLength;
+            }
+        }
+    }
 
     // Returns true if a specific minute in a given period is available for
     // an appointment, otherwise returns false
